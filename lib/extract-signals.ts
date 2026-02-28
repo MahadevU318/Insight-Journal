@@ -68,6 +68,6 @@ Return JSON only.
     ],
   });
 
-  const raw = response.choices[0].message.content ?? "{}";
+  const raw = response.choices?.[0]?.message?.content ?? "{}";
   return SignalSchema.parse(JSON.parse(raw));
 }

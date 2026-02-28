@@ -110,7 +110,7 @@ Respond in JSON format:
     ],
   });
 
-  const content = completion.choices[0]?.message?.content;
+  const content = completion.choices?.[0]?.message?.content;
 
   if (!content) {
     throw new Error("No response from OpenAI");

@@ -60,7 +60,7 @@ Return format:
     ],
   });
 
-  const raw = response.choices[0].message.content || "{}";
+  const raw = response.choices?.[0]?.message?.content || "{}";
   const parsed = InsightSchema.parse(JSON.parse(raw));
 
   return parsed;
