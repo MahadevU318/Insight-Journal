@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { supabaseClient } from "@/lib/supabase-client";
 
 export default function JournalPage() {
   const router = useRouter();
@@ -12,7 +13,11 @@ export default function JournalPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("SUPABASE_TOKEN");
+    const {
+      data: { session },
+    } = await supabaseClient.auth.getSession();
+
+    const token = session?.access_token;
     if (!token) return alert("Please log in first");
 
     try {
@@ -45,7 +50,7 @@ export default function JournalPage() {
         router.push("/insights");
       }
 
-    } catch (error) {
+    } catch {
       alert("Unexpected error occurred");
     } finally {
       setLoading(false);
