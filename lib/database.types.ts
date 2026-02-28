@@ -58,6 +58,7 @@ export type Database = {
           created_at: string | null
           date: string
           dominant_themes: string[] | null
+          helpful: boolean | null
           id: string
           mood_trend: string | null
           recommendation: string | null
@@ -68,6 +69,7 @@ export type Database = {
           created_at?: string | null
           date: string
           dominant_themes?: string[] | null
+          helpful?: boolean | null
           id?: string
           mood_trend?: string | null
           recommendation?: string | null
@@ -78,6 +80,7 @@ export type Database = {
           created_at?: string | null
           date?: string
           dominant_themes?: string[] | null
+          helpful?: boolean | null
           id?: string
           mood_trend?: string | null
           recommendation?: string | null
