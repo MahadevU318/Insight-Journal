@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { supabaseClient } from "@/lib/supabase-client";
 
-export async function POST(req: Request) {
+async function getLatestInsight(req: Request) {
   try {
     /*
     ----------------------------------------------------
@@ -34,14 +34,13 @@ export async function POST(req: Request) {
     ----------------------------------------------------
     */
 
-    const { data: insight, error } =
-      await supabaseClient
-        .from("daily_insights")
-        .select("*")
-        .eq("user_id", user_id)
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .single();
+    const { data: insight, error } = await supabaseClient
+      .from("daily_insights")
+      .select("*")
+      .eq("user_id", user_id)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .single();
 
     if (error || !insight) {
       return NextResponse.json(
@@ -57,7 +56,6 @@ export async function POST(req: Request) {
     */
 
     return NextResponse.json(insight);
-
   } catch (err) {
     console.error("Latest insight error:", err);
     return NextResponse.json(
@@ -65,4 +63,12 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   }
+}
+
+export async function GET(req: Request) {
+  return getLatestInsight(req);
+}
+
+export async function POST(req: Request) {
+  return getLatestInsight(req);
 }

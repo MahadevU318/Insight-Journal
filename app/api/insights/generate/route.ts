@@ -122,7 +122,7 @@ export async function POST(req: Request) {
     ----------------------------------------------------
     */
 
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/latest`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/insights/latest`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

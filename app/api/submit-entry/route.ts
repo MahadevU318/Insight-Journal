@@ -124,7 +124,7 @@ export async function POST(req: Request) {
     ----------------------------------------------------
     */
 
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/generate`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/insights/generate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

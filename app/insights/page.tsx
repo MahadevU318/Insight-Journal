@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { supabaseClient } from "@/lib/supabase-client";
 
 interface DailyInsight {
   summary: string;
@@ -14,7 +15,11 @@ export default function InsightsPage() {
 
   useEffect(() => {
     const fetchInsight = async () => {
-      const token = localStorage.getItem("SUPABASE_TOKEN");
+      const {
+        data: { session },
+      } = await supabaseClient.auth.getSession();
+
+      const token = session?.access_token;
       if (!token) return;
 
       const res = await fetch("/api/insights/latest", {
@@ -24,7 +29,7 @@ export default function InsightsPage() {
       });
 
       const data = await res.json();
-      if (data.success) setInsight(data.insight);
+      if (res.ok) setInsight(data);
     };
 
     fetchInsight();
