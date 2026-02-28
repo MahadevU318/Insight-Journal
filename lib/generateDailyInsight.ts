@@ -1,4 +1,4 @@
-import { openai } from "./openai";
+import { createChatCompletion } from "./openai";
 import {
   AggregateSignals,
   RecurringEntry,
@@ -18,7 +18,7 @@ export async function generateDailyInsight(
   recurring: RecurringEntry[]
 ): Promise<DailyInsight> {
 
-  const response = await openai.chat.completions.create({
+  const response = await createChatCompletion({
     model: "gpt-4o-mini",
     response_format: { type: "json_object" },
     messages: [

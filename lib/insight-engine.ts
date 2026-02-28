@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import { createChatCompletion } from "./openai";
 
 /**
  * Journal entry shape from DB
@@ -24,9 +24,6 @@ export interface DailyInsight {
   recommendation: string;
 }
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
-});
 
 /**
  * Extract dominant themes by frequency
@@ -104,7 +101,7 @@ Respond in JSON format:
 }
 `;
 
-  const completion = await openai.chat.completions.create({
+  const completion = await createChatCompletion({
     model: "gpt-4o-mini",
     temperature: 0.7,
     messages: [
