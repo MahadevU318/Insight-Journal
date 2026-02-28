@@ -16,12 +16,11 @@ export async function GET(req: NextRequest) {
     { auth: { persistSession: false, autoRefreshToken: false } }
   );
 
- const { data, error } = await supabaseServer.auth.getUser(token);
+  const { data, error } = await supabaseServer.auth.getUser(token);
 
-if (error || !data.user) {
-  return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-}
+  if (error || !data.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
-const userId = data.user.id; 
-return userId
+  return NextResponse.json({ userId: data.user.id });
 }

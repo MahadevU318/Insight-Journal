@@ -1,8 +1,9 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
-export default function SupportPage() {
+function SupportContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -11,7 +12,6 @@ export default function SupportPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-100 to-teal-100">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg text-center">
-        
         {/* App Name */}
         <h1
           className="text-4xl font-extrabold mb-6"
@@ -25,7 +25,7 @@ export default function SupportPage() {
         </h2>
 
         <p className="text-gray-700 mb-6">
-          {message || 
+          {message ||
             "It seems like you may be going through a difficult time. Please consider reaching out to someone you trust or a professional for support."}
         </p>
 
@@ -46,5 +46,13 @@ export default function SupportPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SupportPage() {
+  return (
+    <Suspense fallback={<div className="p-6 text-center">Loading support page...</div>}>
+      <SupportContent />
+    </Suspense>
   );
 }

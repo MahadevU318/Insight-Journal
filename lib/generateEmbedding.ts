@@ -1,10 +1,16 @@
-import { openai } from "./openai";
+import { createEmbedding } from "./openai";
 
 export async function generateEmbedding(content: string) {
-  const response = await openai.embeddings.create({
+  const response = await createEmbedding({
     model: "text-embedding-3-small",
     input: content,
   });
 
-  return response.data[0].embedding;
+  const embedding = response.data?.[0]?.embedding;
+
+  if (!embedding) {
+    throw new Error("Failed to generate embedding");
+  }
+
+  return embedding;
 }
