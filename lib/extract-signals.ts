@@ -1,4 +1,4 @@
-import { openai } from "./openai";
+import { createChatCompletion } from "./openai";
 import { StructuredSignals } from "./types";
 import { z } from "zod";
 
@@ -19,7 +19,7 @@ const SignalSchema = z.object({
 export async function generateSignals(
   entry: string
 ): Promise<StructuredSignals> {
-  const response = await openai.chat.completions.create({
+  const response = await createChatCompletion({
     model: "gpt-4o-mini",
     response_format: { type: "json_object" },
     messages: [
@@ -68,6 +68,6 @@ Return JSON only.
     ],
   });
 
-  const raw = response.choices[0].message.content ?? "{}";
+  const raw = response.choices?.[0]?.message?.content ?? "{}";
   return SignalSchema.parse(JSON.parse(raw));
 }
